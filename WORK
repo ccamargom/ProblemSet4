@@ -1,0 +1,11 @@
+import java.util.Iterator;
+
+public class DoubleStack<item> implements Iterable<item>{
+    @Override
+    public Iterator<item> iterator() {
+        return null;
+    }
+    public static void main(String[] args){
+        
+    }
+}
