@@ -1,9 +1,19 @@
 import java.util.Iterator;
 
 public class DoubleStack<item> implements Iterable<item>{
+
+    private int size;
+
+    private Node<Item> first;
+
+    private Node<Item> last;
+
     public Doublestack(){
 }
     public boolean empty(){
+    if(first==null && last==null) return null;
+
+    return true;
 }
     public int size(){
 }
