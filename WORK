@@ -2,6 +2,7 @@ import java.util.Iterator;
 
 public class DoubleStack<item> implements Iterable<item>{
 
+
     private int size;
 
     private Node<Item> first;
@@ -9,19 +10,42 @@ public class DoubleStack<item> implements Iterable<item>{
     private Node<Item> last;
 
     public Doublestack(){
+
+
+
+
 }
     public boolean empty(){
+
     if(first==null && last==null) return null;
 
     return true;
 }
     public int size(){
+return size; 
 }
+
+// Add to the begining 
     public void pushTop(Item item){
+Node<item> oldFirst = first; 
+first = new Node<item>();
+first.item = item;
+first.next = oldFirst;
+size++;
 }
     public void pushBottom(Item item){
+
+
 }
+// remove from top 
     public Item popTop(){
+item kill = null; 
+if(!isEmpty()){
+kill = first.item;
+first = first.next;
+size--;
+}
+
 }
     public Item popBottom(){
 }
@@ -33,6 +57,6 @@ public class DoubleStack<item> implements Iterable<item>{
         return null;
     }
     public static void main(String[] args){
-        Sup goon 
+        
     }
 }
