@@ -33,8 +33,18 @@ first.item = item;
 first.next = oldFirst;
 size++;
 }
+
+// Add item to the last of the list
     public void pushBottom(Item item){
-Node
+        // last is a placeHolder : Might not need it
+        Node<Item> last = new Node<>();  
+        Node<Item> oldlast = last;
+        last = new Node<>();
+        last.item = item;
+        last.next = null;
+        if(isEmpty()){ first = last;}
+        else   { oldlast.next = last;}
+        size++;
 
 }
 // remove from top 
