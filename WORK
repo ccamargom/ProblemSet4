@@ -6,6 +6,6 @@ public class DoubleStack<item> implements Iterable<item>{
         return null;
     }
     public static void main(String[] args){
-        
+        Sup goon 
     }
 }
