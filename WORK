@@ -29,7 +29,7 @@ first.next = oldFirst;
 size++;
 }
     public void pushBottom(Item item){
-
+Node
 
 }
 // remove from top 
@@ -52,6 +52,9 @@ size--;
         return null;
     }
     public static void main(String[] args){
-        
+
+
+
+
     }
 }
