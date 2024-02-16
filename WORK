@@ -1,11 +1,13 @@
 import java.util.Iterator;
 
 public class DoubleStack<item> implements Iterable<item>{
-//create the size
-private int size;
-// create the First Node
-private Node<item> first; 
 
+
+    private int size;
+
+    private Node<Item> first;
+
+    private Node<Item> last;
 
     public Doublestack(){
 
@@ -14,7 +16,10 @@ private Node<item> first;
 
 }
     public boolean empty(){
-return first == null; 
+
+    if(first==null && last==null) return null;
+
+    return true;
 }
     public int size(){
 return size; 
