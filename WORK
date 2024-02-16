@@ -8,6 +8,10 @@ private Node<item> first;
 
 
     public Doublestack(){
+
+
+
+
 }
     public boolean empty(){
 return first == null; 
@@ -25,11 +29,17 @@ first.next = oldFirst;
 size++;
 }
     public void pushBottom(Item item){
+
+
 }
 // remove from top 
     public Item popTop(){
 item kill = null; 
-if 
+if(!isEmpty()){
+kill = first.item;
+first = first.next;
+size--;
+}
 
 }
     public Item popBottom(){
