@@ -1,80 +1,156 @@
-public class DoubleStack<item> implements Iterable<item>{
+package DataAndAlgortithims;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
+public class DoubleStack<Item> implements Iterable<Item>{
 
-
-    private Node<item> First; // top of stack 1
-    private int size1;
-
-    private Node<item> Second; // top of stack 2
-    private int size2;
     public static class Node<Item> {
-        Item item;
-        Node<Item> next;
+        private Item item;
+        private Node<Item>  next;
+        private Node<Item>  previous;
+
     }
+
+
+    private Node<Item> head; // top of stack 1
+
+
+    private Node<Item> tail; // top of stack 2
+    private int length;
+
 
 
 
     public DoubleStack(){
-  this.First = null;
-  this.Second = null;
-  this.size1 = 0;
-  this.size2 = 0;
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
 
 
     }
+
+
+
     public boolean empty(){
+        return length == 0; // head ==null
 
-        if(size1==0 && size2 ==0 ) {return false;}
-        else{
-            return true;
+    }
+
+
+    public int size(){    // returns the size of the linked list
+        return length;
+    }
+
+
+
+
+    public void pushTop(Item item){   /// yesss
+        Node<Item> newnode = new Node<>();      // create a new node.
+        if (empty()){
+            tail = newnode;                     // if my node is empty place it in the back
+        }else {
+            head.previous = newnode;            //
         }
+        newnode.next = head;
+        head = newnode;
+        length++;
+
+
+
     }
 
 
 
+    public void pushBottom(Item item){
+        Node<Item> newnode = new Node<>();
+        if(empty()){
+            head = newnode;
+        }else {                // if not empty insert at the back of the linked list
+            tail.next = newnode;
+            newnode.previous = tail;
 
+        }
+        tail = newnode;
+        length++;
+
+
+
+
+    }
     // remove from top
-    public item popTop() {
-        item item = First.item;
-        First = First.next;
-        size1--;
-        return item;
+    public Item popTop() {    /// YES
+       if(empty()){
+           throw  new NoSuchElementException();    // if its empty then let me know.
+       }
+       Node<Item> temp = head;                     // create a holding value for the head
+       if(head == null){
+           tail = null;                           // if the head has nothing in it then so does the tail
+       }
+
+       else {
+           head.next.previous = null;    // break the link between head and the next node    the pointer to be exact
+       }
+       head = head.next;
+       temp.next = null;                 // breaks the link off of the previous head
+       return temp.item;                 // creates the boundry again          null <- temp -> null
+
+    }
+
+
+    //                                     Head                        Tail
+    public Item popBottom() {    // null<-[[][1][]]-> <-[[][2][]]-><-[[][3][]] -> null
+        if(empty()){                                        //          temp
+            throw new NoSuchElementException();
+        }
+        Node<Item> temp = tail;   // create the temp node for the tail
+        if (head == tail){
+            head = null;
+        }else {                                // I need to remove the two pointers
+
+//                     Head                        Tail
+            // null<-[[][1][]]-> <-[[][2][null]]<-[[][3][]] -> null
+                                         //         temp
+
+            tail.previous.next = null;
+        }
+
+
+        //          Head         Tail
+        // null<-[[][1][]]-> <-[[][2][]]-> null    |    null <-[[][3][]] -> null
+        //                                                      temp
+
+        tail = tail.previous;
+        temp.previous = null;
+        return temp.item;
+
     }
 
 
-    public void pushTop(item nitem){
-        Node<item> oldfirst = First;
-        First = new Node<>();
-        First.item = nitem;
-        First.next = oldfirst;
-        size1++;
-    }
 
-    public void pushBottom(Node<item> item){
-
-        Node<item> oldfirst = Second;
-        Second = new Node<item>();
-        Second.item = item;
-        Second.next = oldfirst;
-        size2++;
+    public Iterator<Item> iterator() {
 
     }
-    public item popBottom() {    // Tecnically this is the bottom of the stack
-        item Item = Second.item;
-        Second = Second.next;
-        size2--;
-        return Item;
+
+
+    public Item peek() {
+        if (empty()) throw new NoSuchElementException("Stack underflow");
+        return head.item;
     }
 
-
-
-    public Iterator<item> iterator() {
-        return null;
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (Item item : this)
+            s.append(item + " ");
+        return s.toString();
     }
+
+    
 
 
     public static void main(String[] args) {
+
 
     }
 
