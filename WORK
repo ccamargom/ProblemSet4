@@ -155,3 +155,123 @@ public class DoubleStack<Item> implements Iterable<Item>{
     }
 
 }
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class DoubleStack<item> implements Iterable<item> {
+
+    private Node<item> First; // Top
+    private int size;
+
+    private Node<item> Second; // Bottom
+
+    public DoubleStack() {
+        First = new Node<item>();
+        Second = new Node<item>();
+        size = 0;
+    }
+
+    public boolean empty() {
+        return size() == 0;
+
+    }
+    public int size(){
+        return size;
+    }
+    // remove from top
+    public item popTop() {
+        if (empty()) throw new NoSuchElementException();
+        item item = First.item;
+        First = First.next;
+        size--;
+        return item;
+    }
+
+    public void pushTop(item nitem) {
+        if (nitem == null) throw new IllegalArgumentException();
+        Node<item> oldfirst = First;
+        First = new Node<>();
+        First.item = nitem;
+        First.next = oldfirst;
+        size++;
+        if (size == 1) {
+            Second= First;
+        }
+    }
+
+    public void pushBottom(item nitem) {
+        if (nitem == null) throw new IllegalArgumentException();
+        Node<item> oldlast = Second;
+        Second = new Node<>();
+        Second.item = nitem;
+        Second.next = oldlast;
+        size++;
+        if (size == 1) {
+            First = Second;
+        }
+    }
+
+    public item popBottom() {
+        if (!empty()) throw new NoSuchElementException();
+        item Item = Second.item;
+        Second = Second.next;
+        size--;
+        if (size == 0) {
+            First = null;
+        }
+        return Item;
+    }
+
+    public Iterator<item> iterator() {
+        return new FancyIterator<>(First);
+    }
+
+    private static class Node<Item> {
+        Item item;
+        Node<Item> next;
+
+    }
+
+    private static class FancyIterator<Item> implements Iterator<Item> {
+        private Node<Item> nextNode;
+
+        public FancyIterator(Node<Item> startNode) {
+            nextNode = startNode;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextNode != null;
+        }
+
+        @Override
+        public Item next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            Node<Item> save = nextNode;
+            nextNode = nextNode.next;
+            return save.item;
+        }
+    }
+
+    public static void main(String[] args) {
+        DoubleStack<Integer> stack = new DoubleStack<>();
+        stack.pushTop(1);
+        stack.pushTop(2);
+        stack.pushBottom(3);
+        stack.pushBottom(4);
+
+        System.out.println("Elements popped from top:");
+        while (!stack.empty()) {
+            System.out.println(stack.popTop());
+        }
+
+        System.out.println("Elements popped from bottom:");
+        stack.pushTop(1);
+        stack.pushTop(2);
+        stack.pushBottom(3);
+        stack.pushBottom(4);
+        while (!stack.empty()) {
+            System.out.println(stack.popBottom());
+        }
+    }
+}
